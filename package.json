@@ -12,13 +12,16 @@
   "dependencies": {
     "@react-three/drei": "^9.103.1",
     "@react-three/fiber": "^8.16.1",
+    "autoprefixer": "^10.4.19",
     "framer-motion": "^11.0.24",
     "maath": "^0.10.7",
+    "postcss": "^8.4.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-tilt": "^1.0.2",
-    "react-vertical-timeline-component": "^3.6.0"
+    "react-vertical-timeline-component": "^3.6.0",
+    "three": "^0.163.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
