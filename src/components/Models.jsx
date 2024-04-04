@@ -5,7 +5,7 @@ const Models = ({ fileContent }) => {
   const model = useGLTF(fileContent)
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor={"black"} />
+      {/* <hemisphereLight intensity={0.15} groundColor={"black"} /> */}
       <primitive
         // object={planet.scene}
         object={model.scene}
