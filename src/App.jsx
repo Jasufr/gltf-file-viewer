@@ -1,23 +1,11 @@
 import ModelsCanvas from './components/ModelsCanvas';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import {useDropzone} from 'react-dropzone'
 
 function App() {
   const [fileContent, setFileContent] = useState(null);
-  // const [preview, setPreview] = useState();
 
   const handleOnChange = (e) => {
-    // const target = e.target;
-    // const files = target.files;
-    // console.log(files[0]);
-
-    // setFile(files[0])
-
-    // const file = new FileReader;
-    // file.onload = function() {
-    //   setPreview(file.result);
-    //   console.log(file.result);
-    // }
-    // file.readAsDataURL(files[0])
 
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -31,11 +19,35 @@ function App() {
     reader.readAsDataURL(file);
   };
 
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
+    const file = acceptedFiles[0];
+    console.log(file);
+    const reader = new FileReader();
+    console.log(reader);
+    reader.onload = (event) => {
+      const result = event.target.result;
+      setFileContent(result);
+      console.log(result);
+    }
+
+    reader.readAsDataURL(file);
+  }, [])
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
   return (
     <>
     <div
       className="flex h-full"
     >
+       <div {...getRootProps()}>
+        <input {...getInputProps()} />
+          {
+            isDragActive ?
+              <p>Drop the files here ...</p> :
+              <p>Drag 'n' drop some files here, or click to select files</p>
+          }
+        </div>
       <ModelsCanvas fileContent={fileContent} handleOnChange={handleOnChange} />
       <div className='bg-black text-white p-5 text-center'>
         Drag and drop gltf or glb file here
