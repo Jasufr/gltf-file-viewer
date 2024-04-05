@@ -4,7 +4,9 @@ import { Environment, OrbitControls, Preload, useGLTF } from "@react-three/drei"
 import Models from "./Models";
 
 
-const ModelsCanvas = ({ fileContent, handleOnChange }) => {
+
+const ModelsCanvas = ({ fileContent }) => {
+
   return (
     <Canvas
       frameloop="demand"
