@@ -33,7 +33,7 @@ function App() {
 
     reader.readAsDataURL(file);
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: {"model/gltf-binary":['.glb', '.gltf'],}});
 
   return (
     <>
