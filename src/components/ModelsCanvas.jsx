@@ -11,12 +11,12 @@ const ModelsCanvas = ({ fileContent }) => {
     <Canvas
       frameloop="demand"
       shadows
-      camera={{ position: [20, 3, 5], fov: 25 }}
+      camera={{ position: [0, 2, 5], fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
     >
         <Environment preset="sunset" />
         <OrbitControls />
-        {fileContent && <Models fileContent={fileContent} />}
+        {fileContent && <Models fileContent={fileContent} position-y={-10} />}
         {/* <Models /> */}
       <Preload all />
     </Canvas>
