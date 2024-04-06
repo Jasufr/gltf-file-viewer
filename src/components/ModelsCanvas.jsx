@@ -11,7 +11,7 @@ const ModelsCanvas = ({ fileContent }) => {
     <Canvas
       frameloop="demand"
       shadows
-      camera={{ position: [0, 2, 5], fov: 30 }}
+      camera={{ position: [0, 0, 5], fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
     >
         <Environment preset="sunset" />
