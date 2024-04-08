@@ -1,8 +1,20 @@
-# React + Vite
+# GLTF/GLB models viewer.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React and Vite project with drag and drop function to visualize 3D models (.gltf or .glb).
 
-Currently, two official plugins are available:
+## Getting Started
+### Setup
+```
+npm
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Run a server
+```
+npm run dev
+```
+
+## Built With
+- [ReactJS]() — Front-end JS
+- [ThreeJS]() — 3D Model integration
+- [TailWindCSS](https://tailwindcss.com/) — Styling
+- [Figma](https://www.figma.com) — Prototyping
