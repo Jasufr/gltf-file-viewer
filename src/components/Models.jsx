@@ -6,32 +6,32 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = ({ fileContent }) => {
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
   const [loadingError, setLoadingError] = useState(null);
   // useGLTF(fileContent);
 
   useEffect(() => {
+    scene.clear();
+    // camera.position.set(0, 0, 15);
+
     const loader = new GLTFLoader();
     loader.load(
       fileContent,
       (gltf) => {
-        scene.clear();
-        const mroot = gltf.scene; // Get the root object of the loaded model
-        const bbox = new THREE.Box3().setFromObject(mroot);
-        const cent = bbox.getCenter(new THREE.Vector3());
-        const size = bbox.getSize(new THREE.Vector3());
+        const model = gltf.scene;
 
-        const maxAxis = Math.max(size.x, size.y, size.z);
-        mroot.scale.multiplyScalar(1.0 / maxAxis);
-        bbox.setFromObject(mroot);
-        bbox.getCenter(cent);
-        bbox.getSize(size);
+        const box = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3()).length();
 
-        mroot.position.copy(cent).multiplyScalar(-1);
-        mroot.position.y -= (size.y * 0.5);
+        // Calculate distance from camera based on model size
+        const distance = size / Math.tan(Math.PI * camera.fov / 360);
 
-        // scene.add(gltf.scene);
-        scene.add(mroot);
+        // Adjust camera position to fit the model
+        camera.position.set(0, 0, distance);
+        camera.lookAt(0, 0, 0);
+
+        resizeModel(model, scene);
+        scene.add(model);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -41,50 +41,30 @@ const Models = ({ fileContent }) => {
         setLoadingError("Error loading model. Please check the file and try again.");
       }
     );
-  }, [fileContent, scene]);
+  }, [fileContent, scene, camera]);
+
 
   if (loadingError) {
     return;
   }
 
   return null;
+};
 
+const resizeModel = (model, scene) => {
+  model.updateMatrixWorld();
 
+  const box = new THREE.Box3().setFromObject(model);
+  // const size = box.getSize(new THREE.Vector3()).length();
+  const center = box.getCenter(new THREE.Vector3());
 
-  // const planet = useGLTF("./model/planet/scene.gltf")
-  // const model = useGLTF(fileContent)
+  model.position.x += model.position.x - center.x;
+  model.position.y += model.position.y - center.y;
+  model.position.z += model.position.z - center.z;
+  console.log(model.position);
+  console.log(model.rotation);
 
-  // const loader = new GLTFLoader();
-  // loader.load(
-  //   '{ fileContent }',
-  //   function ( gltf ) {
-  //     scene.add( gltf.scene );
-  //     gltf.animations; // Array<THREE.AnimationClip>
-  //     gltf.scene; // THREE.Group
-  //     gltf.scenes; // Array<THREE.Group>
-  //     gltf.cameras; // Array<THREE.Camera>
-  //     gltf.asset; // Object
-  //   },
-  //   function ( xhr ) {
-  //     console.log( (xhr.loaded / xhr.total * 100 ) + '% loaded' );
-  //   },
-  //   function ( error ) {
-  //     console.log( 'An error happened' );
-  //   }
-  // );
-
-  // const gltf = useLoader(GLTFLoader, { fileContent });
-
-  // return (
-  //   <mesh>
-  //     {/* <hemisphereLight intensity={0.15} groundColor={"black"} /> */}
-  //     <primitive
-  //       // object={planet.scene}
-  //       object={model.scene}
-  //       // object={gltf.scene}
-  //       />
-  //   </mesh>
-  // );
+  scene.add(model);
 };
 
 export default Models;

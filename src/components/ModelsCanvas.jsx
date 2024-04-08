@@ -6,17 +6,19 @@ import Models from "./Models";
 
 
 const ModelsCanvas = ({ fileContent }) => {
+  const initialCameraPosition = [0, 0, 15];
 
   return (
     <Canvas
+      // className="webgl"
       frameloop="demand"
       shadows
-      camera={{ position: [0, 0, 5], fov: 30 }}
+      camera={{ position: initialCameraPosition, fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
     >
         <Environment preset="sunset" />
         <OrbitControls />
-        {fileContent && <Models fileContent={fileContent} position-y={-10} />}
+        {fileContent && <Models fileContent={fileContent} />}
         {/* <Models /> */}
       <Preload all />
     </Canvas>

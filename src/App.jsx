@@ -50,18 +50,21 @@ function App() {
 
   return (
     <>
+    { !fileContent && <div className='dropOverlay absolute bg-gray-500 w-96 h-96 flex items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+      <h1>Hello</h1>
+    </div>}
     <div
       className="flex h-full"
     >
-       <div {...getRootProps()}>
+      <div {...getRootProps()}>
         <input {...getInputProps()} />
           {
             isDragActive ?
               <p>Drop the files here ...</p> :
               <p>Drag 'n' drop some files here, or click to select files</p>
           }
-        </div>
-      <ModelsCanvas fileContent={fileContent} />
+      </div>
+      <ModelsCanvas className="canvas" fileContent={fileContent} />
       <div className='bg-black text-white p-5 text-center'>
         Drag and drop gltf or glb file here
         <input type="file" name="modelUploaded" accept='.gltf, .glb' onChange={handleOnChange} />
@@ -69,10 +72,9 @@ function App() {
     </div>
     </>
   );
-};
+}
 
-
-// const canvas = document.getElementById("canvas");
+// const canvas = document.querySelector(".canvas");
 // canvas.addEventListener('dragenter', () => this.app.showDropDownOverlay = true);
 // canvas.addEventListener('dragleave', () => this.app.showDropDownOverlay = false);
 export default App
