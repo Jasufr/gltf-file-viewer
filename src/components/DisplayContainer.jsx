@@ -1,15 +1,17 @@
-import { useCallback } from "react";
+import { useCallback, useState, Suspense } from "react";
 import { useDropzone } from "react-dropzone";
 import ModelsCanvas from "./ModelsCanvas";
 
-const DragDropArea = (props) => {
+const DisplayContainer = (props) => {
   const { handleFileRead, fileContent } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
     const reader = new FileReader();
     reader.onload = handleFileRead;
     reader.readAsDataURL(file);
+    setIsLoading(true);
   }, []);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({noClick:true, onDrop, accept: {"model/gltf-binary":['.glb', '.gltf'],}});
@@ -29,10 +31,19 @@ const DragDropArea = (props) => {
             </div>
             </div>}
           <ModelsCanvas fileContent={fileContent} />
+          {/* {isLoading ? (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            Loading...
+          </div>
+        ) : (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ModelsCanvas fileContent={fileContent} />
+          </Suspense>
+        )} */}
     </div>
     </>
   )
 
 }
 
-export default DragDropArea;
+export default DisplayContainer;

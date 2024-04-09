@@ -35,6 +35,8 @@ const Menu = (props) => {
           Choose a file:
           <input type="file" name="modelUploaded" accept='.gltf, .glb' onChange={handleOnChange} />
         </div>
+        <div className="text-white">Preloaded Models</div>
+        <div className="text-white">Animation</div>
         </div>
       </div>
     </>

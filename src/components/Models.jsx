@@ -6,14 +6,16 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = ({ fileContent }) => {
-  const { scene, camera } = useThree();
+  const { scene, camera, gl } = useThree();
   const [loadingError, setLoadingError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   // useGLTF(fileContent);
 
 
   useEffect(() => {
     scene.clear();
     // camera.position.set(0, 0, 15);
+    setIsLoading(true);
 
     const loader = new GLTFLoader();
     loader.load(
@@ -33,6 +35,9 @@ const Models = ({ fileContent }) => {
 
         resizeModel(model, scene);
         scene.add(model);
+        gl.render(scene, camera);
+
+        setIsLoading(false);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -42,7 +47,7 @@ const Models = ({ fileContent }) => {
         setLoadingError("Error loading model. Please check the file and try again.");
       }
     );
-  }, [fileContent, scene, camera]);
+  }, [fileContent, scene, camera, gl]);
 
 
   if (loadingError) {
