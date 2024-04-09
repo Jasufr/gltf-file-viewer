@@ -5,6 +5,7 @@ import DisplayContainer from './components/DisplayContainer';
 
 function App() {
   const [fileContent, setFileContent] = useState(null);
+
   const handleOnChange = (e) => {
 
     const file = e.target.files[0];

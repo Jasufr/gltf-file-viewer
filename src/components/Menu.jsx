@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const [menuOpened, setMenuOpened] = useState(null);
   const {handleOnChange} = props;
+  const [menuOpened, setMenuOpened] = useState(null);
+
 
   return (
     <>
@@ -33,7 +34,7 @@ const Menu = (props) => {
         <div className="flex-1 flex items-start justify-center flex-col gap-6 p-8">
         <div className='bg-black text-white text-center'>
           Choose a file:
-          <input type="file" name="modelUploaded" accept='.gltf, .glb' onChange={handleOnChange} />
+          <input className="modelInput" type="file" name="modelUploaded" accept='.gltf, .glb' onChange={(e) => {handleOnChange(e); setMenuOpened(!menuOpened)}} />
         </div>
         <div className="text-white">Preloaded Models</div>
         <div className="text-white">Animation</div>
@@ -41,6 +42,7 @@ const Menu = (props) => {
       </div>
     </>
   )
+
 }
 
 export default Menu;
