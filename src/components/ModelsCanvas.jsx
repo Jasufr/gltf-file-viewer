@@ -15,26 +15,56 @@ const ModelsCanvas = ({ fileContent }) => {
       console.log(controls);
       controls.listenToKeyEvents(document.body)
       controls.keys = {
-        LEFT: "ArrowLeft", //left arrow
-        UP: "ArrowUp", // up arrow
-        RIGHT: "ArrowRight", // right arrow
-        BOTTOM: "ArrowDown", // down arrow
-        PAN: "A"
-      }
+        RIGHT: "ArrowLeft", //left arrow
+        BOTTOM: "ArrowUp", // up arrow
+        LEFT: "ArrowRight", // right arrow
+        UP: "ArrowDown", // down arrow
+      };
+
+      var azimuthalAngle = 0;
+      var polarAngle = 1.57079;
+      // controls.autoRotate = true;
       window.addEventListener("keydown", (event) => {
         console.log(controls);
-        console.log(controls.getAzimuthalAngle());
+        // console.log(controls.getAzimuthalAngle());
         console.log(controls.getPolarAngle());
         console.log(event.key);
         switch (event.key) {
-          case "b":
-
-            console.log(controls.object.rotation);
-            // controls.rotateLeft(0.1);
-            // requestAnimationFrame(() => {
-            //   controls.update(); // Update OrbitControls
-            // });
+          case "a":
+            azimuthalAngle += 0.1;
+            controls.setAzimuthalAngle(azimuthalAngle);
+            requestAnimationFrame(() => {
+              controls.update(); // Update OrbitControls
+            });
           break;
+          case "d":
+            azimuthalAngle -= 0.1;
+            controls.setAzimuthalAngle(azimuthalAngle);
+            requestAnimationFrame(() => {
+              controls.update(); // Update OrbitControls
+            });
+          break;
+          case "w":
+            polarAngle += 0.1;
+            controls.setPolarAngle(polarAngle);
+            requestAnimationFrame(() => {
+              controls.update(); // Update OrbitControls
+            });
+          break;
+          case "s":
+            polarAngle -= 0.1;
+            controls.setPolarAngle(polarAngle);
+            requestAnimationFrame(() => {
+              controls.update(); // Update OrbitControls
+            });
+          break;
+          case "z":
+            // controls.setDistance(2);
+            // controls.setDistance(3);
+            console.log(controls.object.position.distanceTo(controls));
+            console.log(controls.getDistance());
+            // controls.object.position.z -= 0.5;
+            // controls.update();
         }
       })
       // controls.autoRotate = !controls.autoRotate
