@@ -11,7 +11,6 @@ const Models = ({ fileContent }) => {
   const [isLoading, setIsLoading] = useState(false);
   // useGLTF(fileContent);
 
-
   useEffect(() => {
     scene.clear();
     // camera.position.set(0, 0, 15);
