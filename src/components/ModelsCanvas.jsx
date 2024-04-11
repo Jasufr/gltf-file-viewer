@@ -1,11 +1,11 @@
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, Preload, useEnvironment } from "@react-three/drei";
 import Models from "./Models";
 
 const ModelsCanvas = (props) => {
   const controlsRef = useRef();
-  const { fileContent, environmentChange } = props;
+  const { fileContent } = props;
 
   useEffect(() => {
 
@@ -88,9 +88,11 @@ const ModelsCanvas = (props) => {
     }
   }, [fileContent]);
 
-
+  // const envMap = useEnvironment({files: `/public/hdri/${map}.hdr`});
+  // const maps = ["symmetrical_garden", "cobblestone_street_night"]
   // const envMap = useEnvironment({files: selectedEnvironment });
   const envMap = useEnvironment({files: "/public/hdri/symmetrical_garden.hdr"});
+  // const envMap = useEnvironment({files: `/public/hdri/${maps[1]}.hdr`});
 
 
   return (
@@ -101,12 +103,9 @@ const ModelsCanvas = (props) => {
       gl={{ preserveDrawingBuffer: true }}
     >
       {/* <Environment preset="sunset" /> */}
-      <Suspense></Suspense>
       <Environment map={envMap} background />
       <OrbitControls ref={controlsRef} />
-      {/* <Suspense fallback={<div className="z-50">Loading...</div>}> */}
       {fileContent && <Models fileContent={fileContent} />}
-      {/* </Suspense> */}
       <Preload all />
     </Canvas>
   );

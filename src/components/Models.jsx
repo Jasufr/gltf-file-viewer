@@ -1,27 +1,23 @@
-import { useGLTF } from "@react-three/drei";
-import { useLoader, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-// import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
+
+
 
 const Models = ({ fileContent }) => {
   const { scene, camera, gl } = useThree();
   const [loadingError, setLoadingError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  // useGLTF(fileContent);
 
   useEffect(() => {
     scene.clear();
-    // camera.position.set(0, 0, 15);
-    setIsLoading(true);
 
     const loader = new GLTFLoader();
+
     loader.load(
       fileContent,
       (gltf) => {
         const model = gltf.scene;
-
         const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3()).length();
 
@@ -36,7 +32,7 @@ const Models = ({ fileContent }) => {
         scene.add(model);
         gl.render(scene, camera);
 
-        setIsLoading(false);
+        // setIsLoading(false);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -66,8 +62,6 @@ const resizeModel = (model, scene) => {
   model.position.x += model.position.x - center.x;
   model.position.y += model.position.y - center.y;
   model.position.z += model.position.z - center.z;
-  // console.log(model.position);
-  // console.log(model.rotation);
 
   scene.add(model);
 };

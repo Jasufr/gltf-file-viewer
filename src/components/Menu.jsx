@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const {handleOnChange, environmentChange} = props;
+  const {handleOnChange} = props;
   const [menuOpened, setMenuOpened] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
-
 
   return (
     <>
@@ -44,11 +43,11 @@ const Menu = (props) => {
         </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Preloaded Models</div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Environment
-          <select name="environment" id="environment-select">
+          {/* <select name="environment" id="environment-select">
             <option value="none">None</option>
             <option defaultValue value="cobblestone_street_night">Cobblestone Street Night</option>
             <option value="symmetrical_garden">Symmetrical Garden</option>
-          </select>
+          </select> */}
         </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Animation</div>
         </div>
