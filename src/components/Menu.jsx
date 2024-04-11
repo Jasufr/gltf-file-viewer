@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const {handleOnChange} = props;
+  const {handleOnChange, environmentChange} = props;
   const [menuOpened, setMenuOpened] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
 
@@ -43,6 +43,13 @@ const Menu = (props) => {
             <label htmlFor="modelInput" className="text-slate-50 opacity-60 px-1 text-sm">.GLTF or .GLB</label>
         </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Preloaded Models</div>
+        <div className="text-slate-50 py-1 text-lg font-semibold">Environment
+          <select name="environment" id="environment-select">
+            <option value="none">None</option>
+            <option defaultValue value="cobblestone_street_night">Cobblestone Street Night</option>
+            <option value="symmetrical_garden">Symmetrical Garden</option>
+          </select>
+        </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Animation</div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Environment, OrbitControls, Preload } from "@react-three/drei";
+import { Environment, OrbitControls, Preload, useEnvironment } from "@react-three/drei";
 import Models from "./Models";
 
-const ModelsCanvas = ({ fileContent }) => {
+const ModelsCanvas = (props) => {
   const controlsRef = useRef();
+  const { fileContent, environmentChange } = props;
 
   useEffect(() => {
 
@@ -67,7 +68,6 @@ const ModelsCanvas = ({ fileContent }) => {
           break;
 
           case "x": // Zoom Out.
-          console.log(controls.__r3f.parent.scale);
             controls.__r3f.parent.scale.x -= 0.1;
             controls.__r3f.parent.scale.y -= 0.1;
             controls.__r3f.parent.scale.z -= 0.1;
@@ -89,6 +89,10 @@ const ModelsCanvas = ({ fileContent }) => {
   }, [fileContent]);
 
 
+  // const envMap = useEnvironment({files: selectedEnvironment });
+  const envMap = useEnvironment({files: "/public/hdri/symmetrical_garden.hdr"});
+
+
   return (
     <Canvas
       frameloop="demand"
@@ -96,7 +100,9 @@ const ModelsCanvas = ({ fileContent }) => {
       camera={{ fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
     >
-      <Environment preset="sunset" />
+      {/* <Environment preset="sunset" /> */}
+      <Suspense></Suspense>
+      <Environment map={envMap} background />
       <OrbitControls ref={controlsRef} />
       {/* <Suspense fallback={<div className="z-50">Loading...</div>}> */}
       {fileContent && <Models fileContent={fileContent} />}
