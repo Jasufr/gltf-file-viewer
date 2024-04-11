@@ -66,8 +66,8 @@ const resizeModel = (model, scene) => {
   model.position.x += model.position.x - center.x;
   model.position.y += model.position.y - center.y;
   model.position.z += model.position.z - center.z;
-  console.log(model.position);
-  console.log(model.rotation);
+  // console.log(model.position);
+  // console.log(model.rotation);
 
   scene.add(model);
 };
