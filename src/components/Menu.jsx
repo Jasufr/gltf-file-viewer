@@ -5,7 +5,7 @@ const Menu = (props) => {
   const [menuOpened, setMenuOpened] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
 
-  const preloadedModels = ["Nissan350Z.glb", "Fox.glb", "BoxAnimated.glb", "Lamp.glb", "DamagedHelmet.glb", "CardboardBoxes.gltf", "BarrelKeg.gltf"];
+  const preloadedModels = ["Nissan350Z.glb", "Fox.glb", "BoxAnimated.glb", "Lamp.glb", "DamagedHelmet.glb", "BarrelKeg.gltf"];
   preloadedModels.sort();
 
   const modelSelectValue = document.querySelector("#model-select");
