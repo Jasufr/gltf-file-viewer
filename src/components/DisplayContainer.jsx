@@ -5,6 +5,7 @@ import ModelsCanvas from "./ModelsCanvas";
 const DisplayContainer = (props) => {
   const { handleFileRead, fileContent, selectedModel } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(null);
 
   useEffect(() => {
     // Toggle loading state based on fileContent or selectedModel changes
@@ -39,6 +40,20 @@ const DisplayContainer = (props) => {
             </svg>
             <span className="sr-only">Loading...</span>
           </div>}
+          { loadingError && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-96 bg-red-700 bg-opacity-50 p-8 rounded-lg text-slate-50">
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <div className="p-4 max-h-48 overflow-auto">
+            {/* <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
+            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p> */}
+            <p className="text-center font-semibold">{loadingError}</p>
+            </div>
+            </div>}
           { (!isLoading &&(isDragActive || (!fileContent && !selectedModel))) && <div className="select-none cursor-default absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-200 bg-opacity-50 p-6 z-50 rounded-lg">
             <div className="text-center flex flex-col justify-center h-full w-full">
               <img className="mx-auto" draggable="false" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC6ElEQVR4nO3csWuTQRjH8QMXtYvopBTyXldxdBecBf8EF4s4Cs46iSjq0Nxb1KEQmgyK4ChCQFDoUmgqSAKJ1MlJ0dy176JwErQSwnt5XwfzPPfc7wvvlAwP9yH3JFCqFEIIIYQQQgghhBBCgV6923qzMxj5aJ7+qNXr9ZbEgJp2x8eHMOzv9j+eU1IAIkUodvqjVSUFIEqEgYAraRogXoRhvFfSLEDECEWUV1IZQLQIgwivpBBA3AjDeK6keQCRIxRRXElVAFEjDCK4kuoAxI8w5Hsl1QUQgFCwvJL+BWDydN9uRf0obgGAOAAQBwDiAEAcAIgDAHEAIA4AxAGAOAAQBwDiAEAcAIgDAHEAIA4AxAGAOAAQBwDiAEAcAIiTAnD9+R7+KqJLCKBzVwtBcUsSgK6BoLglDUBXIChuSQTQcxAUt6QC6ACC4pZkAF2CoLglHUDPIChupQCgpxAUt1IB0H8QFLdMu7ORCoD+/dxVnLrfai01250PCQF4dgjNTuesaXf2EwLw/BA2N68kBuDZIdTZB8IAPCuEOvtAIIBnhVC1D4QCeF4Ic/aBYADPCiG0D4QDeDYIoX2QAIBng1C2DxIB8HwQZvZBQgCeDcL0PkgMwLNAmN4HCQJ4FgiH+0AYwBMVU5N9IAvAFmfWxqeoz1VEes5BZ/n+wyy3P8pfG9+knl1EOnj49tbk9Sx3LwKfgk/qmT9CPX/06TmHP6mx7i6EkBrGXqadXkB6zuEfluV2txTK2C7N1ILSFYc/KWvaq6FPwcqa4/lfFWNJVxz+pOUH/pjO3ZcAwvpiJxaWrjj8v+8z7l4pgLEHy0+/n1zMtALTxt2u876sWTS0sT/LEdyN/z8pUjp3LwMAe/hKuoBWmu5i8IebGV9axAzJl+X2feAr6evkD2cRNYy9FljGnxuPvp1YyBApd/qxP66N+zr19XU7y+1qY8MfpZ4tmbLc3dHGtrQ5OE89C0IIIYQQQgghpKLsF/pWbPI+vLdAAAAAAElFTkSuQmCC" />
@@ -46,7 +61,7 @@ const DisplayContainer = (props) => {
               <p className="opacity-70 font-light">(.glft or .glb accepted)</p>
             </div>
             </div>}
-          <ModelsCanvas fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} isLoading={isLoading} />
+          <ModelsCanvas fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} isLoading={isLoading} loadingError={loadingError} setLoadingError={setLoadingError} />
     </div>
     </>
   )
