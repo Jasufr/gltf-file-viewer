@@ -40,17 +40,9 @@ const DisplayContainer = (props) => {
             </svg>
             <span className="sr-only">Loading...</span>
           </div>}
-          { loadingError && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-96 bg-red-700 bg-opacity-50 p-8 rounded-lg text-slate-50">
+          { (loadingError && !isDragActive) && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-96 bg-red-700 bg-opacity-50 p-8 rounded-lg text-slate-50">
             <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
             <div className="p-4 max-h-48 overflow-auto">
-            {/* <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p>
-            <p>Error loading model. Please check the file and try again (can't load files with external dependencies).</p> */}
             <p className="text-center font-semibold">{loadingError}</p>
             </div>
             </div>}
