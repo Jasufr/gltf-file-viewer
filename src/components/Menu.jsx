@@ -5,6 +5,11 @@ const Menu = (props) => {
   const [menuOpened, setMenuOpened] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
 
+  const preloadedModels = ["Nissan350Z.glb", "Fox.glb", "BoxAnimated.glb", "Lamp.glb", "DamagedHelmet.glb", "CardboardBoxes.gltf", "BarrelKeg.gltf"];
+  preloadedModels.sort();
+
+  const modelSelectValue = document.querySelector("#model-select");
+
 
   return (
     <>
@@ -38,26 +43,29 @@ const Menu = (props) => {
           <div className='text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900'>
             <label htmlFor="modelInput" className="py-1 px-2 min-w-28">Choose a file: </label>
             <label htmlFor="modelInput" className=" text-slate-500 bg-slate-50 py-1 px-2 w-full truncate">{selectedFile}</label>
-            <input className="modelInput" id="modelInput" type="file" name="modelUploaded" accept='.gltf, .glb' onChange={(e) => {handleOnChange(e); setMenuOpened(!menuOpened); setSelectedFile(e.target.files[0].name)}} hidden />
+            <input className="modelInput" id="modelInput" type="file" name="modelUploaded" accept='.gltf, .glb' onChange={(e) => {handleOnChange(e); setMenuOpened(!menuOpened); setSelectedFile(e.target.files[0].name); modelSelectValue.value = "selected";}} hidden />
           </div>
           <label htmlFor="modelInput" className="text-slate-50 opacity-60 px-1 text-sm">.GLTF or .GLB</label>
         <div className="text-slate-50 py-1 text-lg font-semibold">Preloaded Models</div>
           <div className="text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900">
             <label htmlFor="model-select" className="py-1 px-2 min-w-28">Models list:</label>
-            <select className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" name="model" id="model-select" onChange={(e) => {handleOnSelect(e.target.value)}}>
-              <option selected disabled value="">🔎</option>
-              <option value="Nissan_350Z.glb">FairLady</option>
-              <option defaultValue value="Fox.glb">Fox</option>
-              <option value="BoxAnimated.glb">Box Animated</option>
+            <select defaultValue={"selected"} className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" name="model" id="model-select" onChange={(e) => {handleOnSelect(e.target.value); setSelectedFile("Select a model");}}>
+              <option disabled value="selected">🔎</option>
+              {preloadedModels.map((modelFile, index) => {
+                const modelName = modelFile.replace(/\.(gltf|glb)$/,'');
+                return <option key={index} value={modelFile}>{modelName}</option>
+              })}
             </select>
           </div>
-        </div>
-        <div className="text-slate-50 py-1 text-lg font-semibold">Environment
-          <select name="environment" id="environment-select">
+        <div className="text-slate-50 py-1 text-lg font-semibold">Environments</div>
+        <div className="text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900">
+          <label htmlFor="model-select" className="py-1 px-2 min-w-28">HDR files list:</label>
+          <select name="environment" id="environment-select" className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate">
             <option value="none">None</option>
             <option defaultValue value="cobblestone_street_night">Cobblestone Street Night</option>
             <option value="symmetrical_garden">Symmetrical Garden</option>
           </select>
+        </div>
         </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Animation</div>
         </div>

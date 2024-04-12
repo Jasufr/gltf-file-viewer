@@ -4,10 +4,12 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = (props) => {
-  const { fileContent, selectedModel } = props;
+  var { fileContent, selectedModel } = props;
   let { scene, camera, gl, clock, mixer } = useThree();
   const [loadingError, setLoadingError] = useState(null);
   // const [modelToLoad, setModelToLoad] = useState(null);
+  console.log(`fileContent ${fileContent}`);
+  console.log(`selectedModel ${selectedModel}`);
 
   function animate() {
     requestAnimationFrame(animate);
@@ -18,10 +20,18 @@ const Models = (props) => {
 
   var modelToLoad = null
   useEffect(() => {
+    // if (fileContent) {
+    //   modelToLoad = fileContent;
+    //   selectedModel = null;
+    // }
     fileContent ? modelToLoad = fileContent : "";
   },[fileContent]);
 
   useEffect(() => {
+    // if (selectedModel) {
+    //   modelToLoad = selectedModel;
+    //   fileContent = null;
+    // }
     selectedModel ? modelToLoad = selectedModel : "";
   },[selectedModel]);
 
@@ -34,8 +44,8 @@ const Models = (props) => {
       (gltf) => {
         const model = gltf.scene;
 
-        console.log(gltf.animations);
-        console.log(gl);
+        // console.log(gltf.animations);
+        // console.log(gl);
         gl.setAnimationLoop = true;
         if (gltf.animations.length > 0) {
           const animations = gltf.animations;

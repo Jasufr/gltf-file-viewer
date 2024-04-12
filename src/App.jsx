@@ -8,20 +8,23 @@ function App() {
   const [selectedModel, setSelectedModel] = useState(null);
 
   const handleOnSelect = (value) => {
-    console.log(value);
+    // console.log(value);
     const selectedModel = `./public/models/${value}`;
     setSelectedModel(selectedModel);
+    setFileContent(null);
   };
 
   const handleOnChange = (e) => {
-
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const result = event.target.result;
-      setFileContent(result);
-    }
-    reader.readAsDataURL(file);
+    // if (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target.result;
+        setFileContent(result);
+      }
+      reader.readAsDataURL(file);
+      setSelectedModel(null);
+    // }
   };
 
   const handleFileRead = (event) => {
