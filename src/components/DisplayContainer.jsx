@@ -15,7 +15,6 @@ const DisplayContainer = (props) => {
       setIsLoading(false);
     }
   }, [fileContent, selectedModel]);
-
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
     const reader = new FileReader();

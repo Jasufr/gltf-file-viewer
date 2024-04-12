@@ -88,9 +88,11 @@ const ModelsCanvas = (props) => {
     }
   }, [fileContent]);
 
-
+  // const envMap = useEnvironment({files: `/public/hdri/${map}.hdr`});
+  // const maps = ["symmetrical_garden", "cobblestone_street_night"]
   // const envMap = useEnvironment({files: selectedEnvironment });
   const envMap = useEnvironment({files: "/public/hdri/symmetrical_garden.hdr"});
+  // const envMap = useEnvironment({files: `/public/hdri/${maps[1]}.hdr`});
 
 
   return (

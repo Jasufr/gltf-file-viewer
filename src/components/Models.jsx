@@ -35,15 +35,14 @@ const Models = (props) => {
     selectedModel ? modelToLoad = selectedModel : "";
   },[selectedModel]);
 
-
   useEffect(() => {
     scene.clear();
     const loader = new GLTFLoader();
+
     loader.load(
       modelToLoad,
       (gltf) => {
         const model = gltf.scene;
-
         // console.log(gltf.animations);
         // console.log(gl);
         gl.setAnimationLoop = true;
@@ -52,7 +51,6 @@ const Models = (props) => {
           mixer = new THREE.AnimationMixer(model);
           mixer.clipAction(animations[0]).play();
         }
-
         const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3()).length();
 

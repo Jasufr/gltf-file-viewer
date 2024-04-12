@@ -9,8 +9,6 @@ const Menu = (props) => {
   preloadedModels.sort();
 
   const modelSelectValue = document.querySelector("#model-select");
-
-
   return (
     <>
       <button
@@ -64,7 +62,7 @@ const Menu = (props) => {
             <option value="none">None</option>
             <option defaultValue value="cobblestone_street_night">Cobblestone Street Night</option>
             <option value="symmetrical_garden">Symmetrical Garden</option>
-          </select>
+          </select> */}
         </div>
         </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Animation</div>
