@@ -3,21 +3,54 @@ import { useEffect, useState } from "react";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
+const Models = (props) => {
+  var { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError } = props;
+  let { scene, camera, gl, clock, mixer } = useThree();
+  // const [loadingError, setLoadingError] = useState(null);
+  // const [modelToLoad, setModelToLoad] = useState(null);
+  console.log(`fileContent ${fileContent}`);
+  console.log(`selectedModel ${selectedModel}`);
 
+  function animate() {
+    requestAnimationFrame(animate);
+    if (mixer) {
+      mixer.update(clock.getDelta());
+    }
+  }
 
-const Models = ({ fileContent }) => {
-  const { scene, camera, gl } = useThree();
-  const [loadingError, setLoadingError] = useState(null);
+  var modelToLoad = null
+  useEffect(() => {
+    // if (fileContent) {
+    //   modelToLoad = fileContent;
+    //   selectedModel = null;
+    // }
+    fileContent ? modelToLoad = fileContent : "";
+  },[fileContent]);
+
+  useEffect(() => {
+    // if (selectedModel) {
+    //   modelToLoad = selectedModel;
+    //   fileContent = null;
+    // }
+    selectedModel ? modelToLoad = selectedModel : "";
+  },[selectedModel]);
 
   useEffect(() => {
     scene.clear();
-
     const loader = new GLTFLoader();
 
     loader.load(
-      fileContent,
+      modelToLoad,
       (gltf) => {
         const model = gltf.scene;
+        // console.log(gltf.animations);
+        // console.log(gl);
+        gl.setAnimationLoop = true;
+        if (gltf.animations.length > 0) {
+          const animations = gltf.animations;
+          mixer = new THREE.AnimationMixer(model);
+          mixer.clipAction(animations[0]).play();
+        }
         const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3()).length();
 
@@ -30,19 +63,21 @@ const Models = ({ fileContent }) => {
 
         resizeModel(model, scene);
         scene.add(model);
+        setIsLoading(false);
         gl.render(scene, camera);
-
-        // setIsLoading(false);
+        animate();
+        setLoadingError(null);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
       },
       (error) => {
         console.error('Error loading model:', error);
-        setLoadingError("Error loading model. Please check the file and try again.");
+        setLoadingError(`${error}`);
+        setIsLoading(false);
       }
     );
-  }, [fileContent, scene, camera, gl]);
+  }, [fileContent, selectedModel, scene, camera, gl]);
 
 
   if (loadingError) {
