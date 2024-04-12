@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const {handleOnChange, environmentChange} = props;
+  const { handleOnChange, handleOnSelect } = props;
   const [menuOpened, setMenuOpened] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
 
@@ -34,15 +34,24 @@ const Menu = (props) => {
       >
         <div className="flex-1 flex items-start mt-20 flex-col gap-6 p-8">
         <div className="w-full">
-        <div className="text-slate-50 py-1 text-lg font-semibold">Browse your 3D model.</div>
-            <div className='text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900 '>
+          <div className="text-slate-50 py-1 text-lg font-semibold">Browse your 3D model.</div>
+          <div className='text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900'>
             <label htmlFor="modelInput" className="py-1 px-2 min-w-28">Choose a file: </label>
             <label htmlFor="modelInput" className=" text-slate-500 bg-slate-50 py-1 px-2 w-full truncate">{selectedFile}</label>
             <input className="modelInput" id="modelInput" type="file" name="modelUploaded" accept='.gltf, .glb' onChange={(e) => {handleOnChange(e); setMenuOpened(!menuOpened); setSelectedFile(e.target.files[0].name)}} hidden />
           </div>
-            <label htmlFor="modelInput" className="text-slate-50 opacity-60 px-1 text-sm">.GLTF or .GLB</label>
-        </div>
+          <label htmlFor="modelInput" className="text-slate-50 opacity-60 px-1 text-sm">.GLTF or .GLB</label>
         <div className="text-slate-50 py-1 text-lg font-semibold">Preloaded Models</div>
+          <div className="text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900">
+            <label htmlFor="model-select" className="py-1 px-2 min-w-28">Models list:</label>
+            <select className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" name="model" id="model-select" onChange={(e) => {handleOnSelect(e.target.value)}}>
+              <option selected disabled value="">🔎</option>
+              <option value="Nissan_350Z.glb">FairLady</option>
+              <option defaultValue value="Fox.glb">Fox</option>
+              <option value="BoxAnimated.glb">Box Animated</option>
+            </select>
+          </div>
+        </div>
         <div className="text-slate-50 py-1 text-lg font-semibold">Environment
           <select name="environment" id="environment-select">
             <option value="none">None</option>

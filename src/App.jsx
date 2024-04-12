@@ -5,7 +5,13 @@ import DisplayContainer from './components/DisplayContainer';
 
 function App() {
   const [fileContent, setFileContent] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
 
+  const handleOnSelect = (value) => {
+    console.log(value);
+    const selectedModel = `./public/models/${value}`;
+    setSelectedModel(selectedModel);
+  };
 
   const handleOnChange = (e) => {
 
@@ -27,8 +33,8 @@ function App() {
   return (
     <>
     <div className="flex h-full relative">
-      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} />
-      <Menu handleOnChange={handleOnChange} />
+      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} selectedModel={selectedModel} />
+      <Menu handleOnChange={handleOnChange} handleOnSelect={handleOnSelect} />
     </div>
     </>
   );

@@ -1,11 +1,11 @@
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, Preload, useEnvironment } from "@react-three/drei";
 import Models from "./Models";
 
 const ModelsCanvas = (props) => {
   const controlsRef = useRef();
-  const { fileContent, environmentChange } = props;
+  const { fileContent, selectedModel } = props;
 
   useEffect(() => {
 
@@ -101,12 +101,9 @@ const ModelsCanvas = (props) => {
       gl={{ preserveDrawingBuffer: true }}
     >
       {/* <Environment preset="sunset" /> */}
-      <Suspense></Suspense>
       <Environment map={envMap} background />
       <OrbitControls ref={controlsRef} />
-      {/* <Suspense fallback={<div className="z-50">Loading...</div>}> */}
-      {fileContent && <Models fileContent={fileContent} />}
-      {/* </Suspense> */}
+      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} />}
       <Preload all />
     </Canvas>
   );
