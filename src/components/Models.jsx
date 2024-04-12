@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = (props) => {
-  var { fileContent, selectedModel } = props;
+  var { fileContent, selectedModel, setIsLoading } = props;
   let { scene, camera, gl, clock, mixer } = useThree();
   const [loadingError, setLoadingError] = useState(null);
   // const [modelToLoad, setModelToLoad] = useState(null);
@@ -65,6 +65,7 @@ const Models = (props) => {
 
         resizeModel(model, scene);
         scene.add(model);
+        setIsLoading(false);
         gl.render(scene, camera);
         animate();
       },
@@ -74,6 +75,7 @@ const Models = (props) => {
       (error) => {
         console.error('Error loading model:', error);
         setLoadingError("Error loading model. Please check the file and try again.");
+        setIsLoading(false);
       }
     );
   }, [fileContent, selectedModel, scene, camera, gl]);

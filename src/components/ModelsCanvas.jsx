@@ -5,7 +5,7 @@ import Models from "./Models";
 
 const ModelsCanvas = (props) => {
   const controlsRef = useRef();
-  const { fileContent, selectedModel } = props;
+  const { fileContent, selectedModel, isLoading, setIsLoading } = props;
 
   useEffect(() => {
 
@@ -103,7 +103,7 @@ const ModelsCanvas = (props) => {
       {/* <Environment preset="sunset" /> */}
       <Environment map={envMap} background />
       <OrbitControls ref={controlsRef} />
-      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} />}
+      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} />}
       <Preload all />
     </Canvas>
   );
