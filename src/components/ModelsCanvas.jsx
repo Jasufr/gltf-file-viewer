@@ -1,15 +1,20 @@
-import { useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { Environment, OrbitControls, Preload, useEnvironment } from "@react-three/drei";
 import Models from "./Models";
 
 const ModelsCanvas = (props) => {
   const controlsRef = useRef();
-  const { fileContent, selectedModel, isLoading, setIsLoading, loadingError, setLoadingError } = props;
+  const { fileContent, selectedModel, isLoading, setIsLoading, loadingError, setLoadingError, environment } = props;
+
+  const [forceRender, setForceRender] = useState(false);
+
+  // const envMap = "/public/hdri/rosendal_park_sunset.hdr";
 
   useEffect(() => {
 
     const controls = controlsRef.current;
+
 
     if (controls) {
       controls.reset(); // Reset OrbitControls to have a neutral view for the next Model loaded.
@@ -77,22 +82,53 @@ const ModelsCanvas = (props) => {
 
           break;
 
-          case "r": // Toggle autoRotate.
-            controls.autoRotate = !controls.autoRotate;
-            controls.update();
-          break;
+          // case "r": // Toggle autoRotate.
+          //   controls.autoRotate = !controls.autoRotate;
+          //   controls.update();
+          // break;
         }
       });
       // Update the controls for immediate visuals rendering.
       controls.update();
     }
-  }, [fileContent]);
+  }, [fileContent])
 
-  // const envMap = useEnvironment({files: `/public/hdri/${map}.hdr`});
-  // const maps = ["symmetrical_garden", "cobblestone_street_night"]
-  // const envMap = useEnvironment({files: selectedEnvironment });
-  const envMap = useEnvironment({files: "/public/hdri/symmetrical_garden.hdr"});
-  // const envMap = useEnvironment({files: `/public/hdri/${maps[1]}.hdr`});
+  useEffect(() => {
+    // Force re-render of Canvas when environment changes
+    setForceRender(true);
+  }, [environment]);
+
+  useEffect(() => {
+    // Reset forceRender after re-render
+    if (forceRender) {
+      setForceRender(false);
+    }
+  }, [forceRender]);
+
+  const envMap = useMemo(() => {
+    switch (environment) {
+      case "none":
+        return null;
+
+      case "pure_sky":
+        return "/public/hdri/pure_sky.hdr";
+
+      case "brown_photostudio":
+        return "/public/hdri/brown_photostudio.hdr"
+
+      case "leadenhall_market":
+        return "/public/hdri/leadenhall_market.hdr"
+
+      case "ninomaru_teien":
+        return "/public/hdri/ninomaru_teien.hdr"
+
+      case "rosendal_park_sunset":
+        return "/public/hdri/rosendal_park_sunset.hdr"
+
+      default:
+        return null;
+    }
+  }, [environment]);
 
 
   return (
@@ -101,9 +137,11 @@ const ModelsCanvas = (props) => {
       shadows
       camera={{ fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
+      // key={forceRender ? "forceRender" : undefined} // Key to force re-render
     >
-      {/* <Environment preset="sunset" /> */}
-      <Environment map={envMap} background />
+      {!envMap && <Environment preset="sunset" />}
+      {(envMap && !isLoading) && <Environment files={envMap} background />}
+      {/* <EnvironmentMap environment={environment} /> */}
       <OrbitControls ref={controlsRef} />
       {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} />}
       <Preload all />

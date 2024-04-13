@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import ModelsCanvas from "./ModelsCanvas";
 
 const DisplayContainer = (props) => {
-  const { handleFileRead, fileContent, selectedModel, setSelectedModel, modelSelectValue, modelInputValue, selectedFile, setSelectedFile } = props;
+  const { handleFileRead, fileContent, selectedModel, setSelectedModel, modelSelectValue, modelInputValue, selectedFile, setSelectedFile, environment } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(null);
 
@@ -23,7 +23,7 @@ const DisplayContainer = (props) => {
     modelSelectValue.value = "selected";
     modelInputValue.value = "";
     setSelectedFile("Select a model");
-    setSelectedModel(null);
+    // setSelectedModel(null);
   }, [handleFileRead, modelInputValue, modelSelectValue, setSelectedFile, setSelectedModel]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({noClick:true, onDrop, accept: {"model/gltf-binary":['.glb', '.gltf'],}});
@@ -56,7 +56,7 @@ const DisplayContainer = (props) => {
               <p className="opacity-70 font-light">(.glft or .glb accepted)</p>
             </div>
             </div>}
-          <ModelsCanvas fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} isLoading={isLoading} loadingError={loadingError} setLoadingError={setLoadingError} />
+          <ModelsCanvas fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} isLoading={isLoading} loadingError={loadingError} setLoadingError={setLoadingError} environment={environment} />
     </div>
     </>
   )

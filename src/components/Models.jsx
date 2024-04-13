@@ -1,56 +1,59 @@
-import { useThree } from "@react-three/fiber";
+import { dispose, useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = (props) => {
-  var { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError } = props;
+  const { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError } = props;
   let { scene, camera, gl, clock, mixer } = useThree();
   // const [loadingError, setLoadingError] = useState(null);
   // const [modelToLoad, setModelToLoad] = useState(null);
-  console.log(`fileContent ${fileContent}`);
-  console.log(`selectedModel ${selectedModel}`);
+  // console.log(`fileContent ${fileContent}`);
+  // console.log(`selectedModel ${selectedModel}`);
 
-  function animate() {
-    requestAnimationFrame(animate);
-    if (mixer) {
-      mixer.update(clock.getDelta());
-    }
-  }
+  // function animate() {
+  //   requestAnimationFrame(animate);
+  //   if (mixer) {
+  //     mixer.update(clock.getDelta());
+  //   }
+  // }
 
-  var modelToLoad = null
-  useEffect(() => {
-    // if (fileContent) {
-    //   modelToLoad = fileContent;
-    //   selectedModel = null;
-    // }
-    fileContent ? modelToLoad = fileContent : "";
-  },[fileContent]);
+  // var modelToLoad = null
+  // useEffect(() => {
+  //   // if (fileContent) {
+  //   //   modelToLoad = fileContent;
+  //   //   selectedModel = null;
+  //   // }
+  //   fileContent ? modelToLoad = fileContent : "";
+  // },[fileContent]);
 
-  useEffect(() => {
-    // if (selectedModel) {
-    //   modelToLoad = selectedModel;
-    //   fileContent = null;
-    // }
-    selectedModel ? modelToLoad = selectedModel : "";
-  },[selectedModel]);
+  // useEffect(() => {
+  //   // if (selectedModel) {
+  //   //   modelToLoad = selectedModel;
+  //   //   fileContent = null;
+  //   // }
+  //   selectedModel ? modelToLoad = selectedModel : "";
+  // },[selectedModel]);
 
   useEffect(() => {
     scene.clear();
     const loader = new GLTFLoader();
 
     loader.load(
-      modelToLoad,
+      // modelToLoad,
+      fileContent,
       (gltf) => {
         const model = gltf.scene;
+
         // console.log(gltf.animations);
         // console.log(gl);
-        gl.setAnimationLoop = true;
-        if (gltf.animations.length > 0) {
-          const animations = gltf.animations;
-          mixer = new THREE.AnimationMixer(model);
-          mixer.clipAction(animations[0]).play();
-        }
+        // gl.setAnimationLoop = true;
+        // if (gltf.animations.length > 0) {
+          // const animations = gltf.animations;
+          // mixer = new THREE.AnimationMixer(model);
+          // mixer.clipAction(animations[0]).play();
+        // }
+
         const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3()).length();
 
@@ -65,7 +68,7 @@ const Models = (props) => {
         scene.add(model);
         setIsLoading(false);
         gl.render(scene, camera);
-        animate();
+        // animate();
         setLoadingError(null);
       },
       (xhr) => {
