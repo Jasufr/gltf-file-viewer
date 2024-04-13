@@ -23,8 +23,8 @@ const DisplayContainer = (props) => {
     modelSelectValue.value = "selected";
     modelInputValue.value = "";
     setSelectedFile("Select a model");
-    setSelectedModel("");
-  }, [handleFileRead, modelInputValue, modelSelectValue, setSelectedFile]);
+    setSelectedModel(null);
+  }, [handleFileRead, modelInputValue, modelSelectValue, setSelectedFile, setSelectedModel]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({noClick:true, onDrop, accept: {"model/gltf-binary":['.glb', '.gltf'],}});
 

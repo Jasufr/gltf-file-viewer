@@ -8,7 +8,6 @@ function App() {
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
 
-
   const modelSelectValue = document.querySelector("#model-select");
   const modelInputValue = document.querySelector("#modelInput");
 
@@ -20,7 +19,6 @@ function App() {
   };
 
   const handleOnChange = (e) => {
-    // if (e) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -29,7 +27,6 @@ function App() {
       }
       reader.readAsDataURL(file);
       setSelectedModel(null);
-    // }
   };
 
   const handleFileRead = (event) => {
