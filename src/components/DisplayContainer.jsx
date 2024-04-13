@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import ModelsCanvas from "./ModelsCanvas";
 
 const DisplayContainer = (props) => {
-  const { handleFileRead, fileContent, selectedModel } = props;
+  const { handleFileRead, fileContent, selectedModel, setSelectedModel, modelSelectValue, modelInputValue, selectedFile, setSelectedFile } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(null);
 
@@ -20,7 +20,11 @@ const DisplayContainer = (props) => {
     const reader = new FileReader();
     reader.onload = handleFileRead;
     reader.readAsDataURL(file);
-  }, [handleFileRead]);
+    modelSelectValue.value = "selected";
+    modelInputValue.value = "";
+    setSelectedFile("Select a model");
+    setSelectedModel("");
+  }, [handleFileRead, modelInputValue, modelSelectValue, setSelectedFile]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({noClick:true, onDrop, accept: {"model/gltf-binary":['.glb', '.gltf'],}});
 

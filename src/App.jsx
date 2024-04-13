@@ -6,6 +6,11 @@ import DisplayContainer from './components/DisplayContainer';
 function App() {
   const [fileContent, setFileContent] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
+  const [selectedFile, setSelectedFile] = useState("Select a model");
+
+
+  const modelSelectValue = document.querySelector("#model-select");
+  const modelInputValue = document.querySelector("#modelInput");
 
   const handleOnSelect = (value) => {
     // console.log(value);
@@ -36,8 +41,8 @@ function App() {
   return (
     <>
     <div className="flex h-full relative">
-      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} selectedModel={selectedModel} />
-      <Menu handleOnChange={handleOnChange} handleOnSelect={handleOnSelect} />
+      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} selectedModel={selectedModel} setSelectedModel={setSelectedModel} modelSelectValue={modelSelectValue} modelInputValue={modelInputValue} selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
+      <Menu handleOnChange={handleOnChange} handleOnSelect={handleOnSelect} modelSelectValue={modelSelectValue} modelInputValue={modelInputValue} selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
     </div>
     </>
   );

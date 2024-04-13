@@ -1,14 +1,16 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const { handleOnChange, handleOnSelect } = props;
+  const { handleOnChange, handleOnSelect, modelInputValue, modelSelectValue, selectedFile, setSelectedFile  } = props;
   const [menuOpened, setMenuOpened] = useState(null);
-  const [selectedFile, setSelectedFile] = useState("Select a model");
+  // const [selectedFile, setSelectedFile] = useState("Select a model");
 
   const preloadedModels = ["Nissan350Z.glb", "Fox.glb", "BoxAnimated.glb", "Lamp.glb", "DamagedHelmet.glb", "BarrelKeg.gltf"];
   preloadedModels.sort();
 
-  const modelSelectValue = document.querySelector("#model-select");
+  // const modelSelectValue = document.querySelector("#model-select");
+  // const modelInputValue = document.querySelector("#modelInput");
+
   return (
     <>
       <button
@@ -47,7 +49,7 @@ const Menu = (props) => {
         <div className="text-slate-50 py-1 text-lg font-semibold">Preloaded Models</div>
           <div className="text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900">
             <label htmlFor="model-select" className="py-1 px-2 min-w-28">Models list:</label>
-            <select defaultValue={"selected"} className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" name="model" id="model-select" onChange={(e) => {handleOnSelect(e.target.value); setSelectedFile("Select a model"); setMenuOpened(!menuOpened);}}>
+            <select defaultValue={"selected"} className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" name="model" id="model-select" onChange={(e) => {handleOnSelect(e.target.value); setSelectedFile("Select a model"); setMenuOpened(!menuOpened); modelInputValue.value = '';}}>
               <option disabled value="selected">🔎</option>
               {preloadedModels.map((modelFile, index) => {
                 const modelName = modelFile.replace(/\.(gltf|glb)$/,'');
