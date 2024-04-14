@@ -1,4 +1,4 @@
-# GLTF/GLB models viewer.
+# GLTF/GLB models viewer 🧊
 
 React and Vite project with drag and drop function to visualize 3D models (.gltf or .glb).
 
