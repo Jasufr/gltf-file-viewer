@@ -4,12 +4,12 @@ import { Environment, OrbitControls, Preload, useEnvironment } from "@react-thre
 import Models from "./Models";
 
 const ModelsCanvas = (props) => {
-  const controlsRef = useRef();
+
   const { fileContent, selectedModel, isLoading, setIsLoading, loadingError, setLoadingError, environment } = props;
 
-  const [forceRender, setForceRender] = useState(false);
+  const controlsRef = useRef();
+  // const [forceRender, setForceRender] = useState(false);
 
-  // const envMap = "/public/hdri/rosendal_park_sunset.hdr";
 
   useEffect(() => {
 
@@ -93,18 +93,7 @@ const ModelsCanvas = (props) => {
     }
   }, [fileContent])
 
-  useEffect(() => {
-    // Force re-render of Canvas when environment changes
-    setForceRender(true);
-  }, [environment]);
-
-  useEffect(() => {
-    // Reset forceRender after re-render
-    if (forceRender) {
-      setForceRender(false);
-    }
-  }, [forceRender]);
-
+  //Changes the Environment when selected in the Menu.
   const envMap = useMemo(() => {
     switch (environment) {
       case "none":
@@ -130,6 +119,20 @@ const ModelsCanvas = (props) => {
     }
   }, [environment]);
 
+  // const envMap = "/public/hdri/rosendal_park_sunset.hdr";
+
+  // useEffect(() => {
+  //   // Force re-render of Canvas when environment changes
+  //   setForceRender(true);
+  // }, [environment]);
+
+  // useEffect(() => {
+  //   // Reset forceRender after re-render
+  //   if (forceRender) {
+  //     setForceRender(false);
+  //   }
+  // }, [forceRender]);
+
 
   return (
     <Canvas
@@ -140,10 +143,12 @@ const ModelsCanvas = (props) => {
       // key={forceRender ? "forceRender" : undefined} // Key to force re-render
     >
       {!envMap && <Environment preset="sunset" />}
-      {(envMap && !isLoading) && <Environment files={envMap} background />}
-      {/* <EnvironmentMap environment={environment} /> */}
+      {(envMap) && <Environment files={envMap} background />}
+
       <OrbitControls ref={controlsRef} />
+
       {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} />}
+
       <Preload all />
     </Canvas>
   );

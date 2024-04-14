@@ -4,12 +4,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = (props) => {
+
   const { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError } = props;
-  let { scene, camera, gl, clock, mixer } = useThree();
-  // const [loadingError, setLoadingError] = useState(null);
-  // const [modelToLoad, setModelToLoad] = useState(null);
-  // console.log(`fileContent ${fileContent}`);
-  // console.log(`selectedModel ${selectedModel}`);
+
+  const { scene, camera, gl, clock, mixer } = useThree();
 
   // function animate() {
   //   requestAnimationFrame(animate);
@@ -18,22 +16,6 @@ const Models = (props) => {
   //   }
   // }
 
-  // var modelToLoad = null
-  // useEffect(() => {
-  //   // if (fileContent) {
-  //   //   modelToLoad = fileContent;
-  //   //   selectedModel = null;
-  //   // }
-  //   fileContent ? modelToLoad = fileContent : "";
-  // },[fileContent]);
-
-  // useEffect(() => {
-  //   // if (selectedModel) {
-  //   //   modelToLoad = selectedModel;
-  //   //   fileContent = null;
-  //   // }
-  //   selectedModel ? modelToLoad = selectedModel : "";
-  // },[selectedModel]);
 
   useEffect(() => {
     scene.clear();
@@ -94,7 +76,6 @@ const resizeModel = (model, scene) => {
   model.updateMatrixWorld();
 
   const box = new THREE.Box3().setFromObject(model);
-  // const size = box.getSize(new THREE.Vector3()).length();
   const center = box.getCenter(new THREE.Vector3());
 
   model.position.x += model.position.x - center.x;
