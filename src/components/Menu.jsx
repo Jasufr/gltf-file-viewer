@@ -40,7 +40,7 @@ const Menu = (props) => {
       >
         <div className="flex-1 flex items-start mt-20 flex-col gap-6 p-8">
           <div className="w-full h-full">
-            <div className="text-slate-50 py-1 text-lg font-semibold mb-2">Browse your 3D model.</div>
+            <div className="text-slate-50 py-1 text-lg font-semibold mb-2">Browse your 3D model</div>
 
             <div className='text-slate-50 flex items-center border-2 border-slate-500 rounded-s-md bg-slate-900'>
               <label htmlFor="modelInput" className="py-1 px-2 min-w-28">Choose a file: </label>
