@@ -1,11 +1,11 @@
-import { dispose, useThree } from "@react-three/fiber";
-import { useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
+import { useEffect } from "react";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three';
 
 const Models = (props) => {
 
-  const { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError, environment } = props;
+  const { fileContent, setIsLoading, loadingError, setLoadingError, environment } = props;
 
   const { scene, camera, gl, clock, mixer } = useThree();
 
@@ -62,7 +62,7 @@ const Models = (props) => {
         setIsLoading(false);
       }
     );
-  }, [fileContent, selectedModel, scene, camera, gl, environment]);
+  }, [fileContent, scene, camera, gl, environment]);
 
 
   if (loadingError) {

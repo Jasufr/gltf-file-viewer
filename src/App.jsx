@@ -6,7 +6,7 @@ import DisplayContainer from './components/DisplayContainer';
 function App() {
 
   const [fileContent, setFileContent] = useState(null);
-  const [selectedModel, setSelectedModel] = useState(null);
+  // const [selectedModel, setSelectedModel] = useState(null);
   const [selectedFile, setSelectedFile] = useState("Select a model");
   const [environment, setEnvironment] = useState("none");
 
@@ -15,7 +15,7 @@ function App() {
 
   //Fetch and read the fileContent of Models selectable in the Menu.
   const handleOnSelect = (value) => {
-    const file = `./public/models/${value}`;
+    const file = `./models/${value}`;
     fetch(file)
     .then(response => response.blob())
     .then(blob => {
@@ -49,7 +49,7 @@ function App() {
   return (
     <>
     <div className="flex h-full relative">
-      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} selectedModel={selectedModel} setSelectedModel={setSelectedModel} modelSelectValue={modelSelectValue} modelInputValue={modelInputValue} selectedFile={selectedFile} setSelectedFile={setSelectedFile} environment={environment} />
+      <DisplayContainer handleFileRead={handleFileRead} fileContent={fileContent} modelSelectValue={modelSelectValue} modelInputValue={modelInputValue} setSelectedFile={setSelectedFile} environment={environment} />
       <Menu handleOnChange={handleOnChange} handleOnSelect={handleOnSelect} modelSelectValue={modelSelectValue} modelInputValue={modelInputValue} selectedFile={selectedFile} setSelectedFile={setSelectedFile} environment={environment} setEnvironment={setEnvironment} />
     </div>
     </>

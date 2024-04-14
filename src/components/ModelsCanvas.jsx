@@ -1,11 +1,11 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { Environment, OrbitControls, Preload, useEnvironment } from "@react-three/drei";
+import { useEffect, useMemo, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment, OrbitControls, Preload } from "@react-three/drei";
 import Models from "./Models";
 
 const ModelsCanvas = (props) => {
 
-  const { fileContent, selectedModel, isLoading, setIsLoading, loadingError, setLoadingError, environment } = props;
+  const { fileContent, setIsLoading, loadingError, setLoadingError, environment } = props;
 
   const controlsRef = useRef();
   // const [forceRender, setForceRender] = useState(false);
@@ -100,19 +100,19 @@ const ModelsCanvas = (props) => {
         return null;
 
       case "pure_sky":
-        return "/public/hdri/pure_sky.hdr";
+        return "/hdri/pure_sky.hdr";
 
       case "brown_photostudio":
-        return "/public/hdri/brown_photostudio.hdr"
+        return "/hdri/brown_photostudio.hdr"
 
       case "leadenhall_market":
-        return "/public/hdri/leadenhall_market.hdr"
+        return "/hdri/leadenhall_market.hdr"
 
       case "ninomaru_teien":
-        return "/public/hdri/ninomaru_teien.hdr"
+        return "/hdri/ninomaru_teien.hdr"
 
       case "rosendal_park_sunset":
-        return "/public/hdri/rosendal_park_sunset.hdr"
+        return "/hdri/rosendal_park_sunset.hdr"
 
       default:
         return null;
@@ -131,7 +131,7 @@ const ModelsCanvas = (props) => {
 
       <OrbitControls ref={controlsRef} />
 
-      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} environment={environment} />}
+      {(fileContent) && <Models fileContent={fileContent} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} environment={environment} />}
 
       <Preload all />
     </Canvas>
