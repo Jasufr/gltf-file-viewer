@@ -119,35 +119,19 @@ const ModelsCanvas = (props) => {
     }
   }, [environment]);
 
-  // const envMap = "/public/hdri/rosendal_park_sunset.hdr";
-
-  // useEffect(() => {
-  //   // Force re-render of Canvas when environment changes
-  //   setForceRender(true);
-  // }, [environment]);
-
-  // useEffect(() => {
-  //   // Reset forceRender after re-render
-  //   if (forceRender) {
-  //     setForceRender(false);
-  //   }
-  // }, [forceRender]);
-
-
   return (
     <Canvas
       frameloop="demand"
       shadows
       camera={{ fov: 30 }}
       gl={{ preserveDrawingBuffer: true }}
-      // key={forceRender ? "forceRender" : undefined} // Key to force re-render
     >
       {!envMap && <Environment preset="sunset" />}
       {(envMap) && <Environment files={envMap} background />}
 
       <OrbitControls ref={controlsRef} />
 
-      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} />}
+      {(fileContent || selectedModel) && <Models fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} loadingError={loadingError} setLoadingError={setLoadingError} environment={environment} />}
 
       <Preload all />
     </Canvas>

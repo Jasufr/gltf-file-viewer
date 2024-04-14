@@ -1,6 +1,7 @@
 import { useCallback, useState, Suspense, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import ModelsCanvas from "./ModelsCanvas";
+import { Image } from "@react-three/drei";
 
 const DisplayContainer = (props) => {
 
@@ -67,7 +68,7 @@ const DisplayContainer = (props) => {
           <h3 className="font-bold">Drag and Drop your 3D Model to load.</h3>
           <p className="opacity-70 font-light">(.glft or .glb accepted)</p>
         </div>
-        </div>}
+      </div>}
 
       <ModelsCanvas fileContent={fileContent} selectedModel={selectedModel} setIsLoading={setIsLoading} isLoading={isLoading} loadingError={loadingError} setLoadingError={setLoadingError} environment={environment} />
     </div>

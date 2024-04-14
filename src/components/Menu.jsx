@@ -69,13 +69,20 @@ const Menu = (props) => {
               <select defaultValue={"none"} name="environment" id="environment-select" className="text-slate-500 bg-slate-50 py-1 px-2 w-full truncate" onChange={(e) => { setEnvironment(e.target.value); setMenuOpened(!menuOpened); }}>
                 <option value="none">None</option>
                 {preloadedEnvironments.map((envFile, index) => {
-                    const envName = envFile;
+                    const envName = envFile.replace(/_/g, ' ').replace(/\b\w/g, firstLetter => firstLetter.toUpperCase());
                     return <option key={index} value={envFile}>{envName}</option>
                   })}
               </select>
             </div>
 
             {/* <div className="text-slate-50 py-1 text-lg font-semibold mt-8 mb-2">Animation</div> */}
+
+            <div className="text-slate-50 py-1 text-lg font-semibold mt-8 mb-2">Controls:</div>
+              <div className="text-slate-50 px-3 text-md">
+                <p>Rotate: Left-Click / W, A, S, D.</p>
+                <p>Zoom IN/OUT: Scroll / Z, X.</p>
+                <p>Move: Right-Click / ARROWS.</p>
+              </div>
 
           </div>
 

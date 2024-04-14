@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 const Models = (props) => {
 
-  const { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError } = props;
+  const { fileContent, selectedModel, setIsLoading, loadingError, setLoadingError, environment } = props;
 
   const { scene, camera, gl, clock, mixer } = useThree();
 
@@ -62,7 +62,7 @@ const Models = (props) => {
         setIsLoading(false);
       }
     );
-  }, [fileContent, selectedModel, scene, camera, gl]);
+  }, [fileContent, selectedModel, scene, camera, gl, environment]);
 
 
   if (loadingError) {

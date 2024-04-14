@@ -36,7 +36,6 @@ function App() {
         const result = e.target.result;
         setFileContent(result);
       }
-      console.log(reader);
       reader.readAsDataURL(file);
   };
 
