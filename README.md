@@ -27,3 +27,4 @@ npm run dev
 - [ThreeJS]() — 3D Model integration
 - [TailWindCSS](https://tailwindcss.com/) — Styling
 - [Figma](https://www.figma.com) — Prototyping
+- [PolyHaven](https://polyhaven.com/hdris) — HDRI Environments
